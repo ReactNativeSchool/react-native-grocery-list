@@ -4,7 +4,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(0, 0, 0, 0.2)",
-    flex: 1,
+    // flex: 1,
     padding: 10
   },
   input: {

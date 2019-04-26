@@ -5,19 +5,20 @@ import {
 } from "react-navigation";
 
 import CurrentList from "../screens/CurrentList";
+import FavoritesList from "../screens/FavoritesList";
 
 const CurrentListStack = createStackNavigator({
   CurrentList: {
     screen: CurrentList,
     navigationOptions: {
-      headerTitle: "Current List"
+      headerTitle: "Shopping List"
     }
   }
 });
 
 const FavoritesStack = createStackNavigator({
   Favorites: {
-    screen: () => null,
+    screen: FavoritesList,
     navigationOptions: {
       headerTitle: "Favorites"
     }

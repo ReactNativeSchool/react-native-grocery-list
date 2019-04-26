@@ -8,11 +8,11 @@ import AddItem from "../components/AddItem";
 
 export default () => (
   <View style={{ flex: 1 }}>
-    <AddItem />
+    <AddItem placeholder="Add new favorite..." />
     <FlatList
       data={nachos}
       keyExtractor={item => item.id}
-      renderItem={({ item }) => <ListItem name={item.name} />}
+      renderItem={({ item }) => <ListItem name={item.name} showStar={false} />}
       ItemSeparatorComponent={() => <Separator />}
     />
   </View>
