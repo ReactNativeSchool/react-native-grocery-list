@@ -1,33 +1,17 @@
-import React, { useState } from "react";
-import { FlatList, View } from "react-native";
-import uuid from "uuid/v4";
+import React from "react";
+import { FlatList, View, ActivityIndicator } from "react-native";
+
+import { useCurrentList } from "../util/ListManager";
 
 import ListItem, { Separator } from "../components/ListItem";
-
-import nachos from "../data/nachos";
 import AddItem from "../components/AddItem";
 
-const useCurrentList = initialList => {
-  const [list, setList] = useState(initialList);
-
-  const addItem = text => {
-    setList([{ id: uuid(), name: text }, ...list]);
-  };
-
-  const removeItem = id => {
-    const newList = list.filter(item => item.id !== id);
-    setList(newList);
-  };
-
-  return {
-    list,
-    addItem,
-    removeItem
-  };
-};
-
 export default () => {
-  const { list, addItem, removeItem } = useCurrentList(nachos);
+  const { list, addItem, removeItem, loading } = useCurrentList();
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <View style={{ flex: 1 }}>
