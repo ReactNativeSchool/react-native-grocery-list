@@ -86,14 +86,22 @@ export const Separator = () => <View style={styles.separator} />;
 
 const ListItem = ({
   name,
-  showStar = true,
-  onFavoritePress = () => {},
+  isFavorite,
+  onFavoritePress,
   onAddedSwipe,
   onRemoveSwipe
 }) => {
-  const starIcon = isAndroid
-    ? require("../assets/icons/md-star-outline.png")
-    : require("../assets/icons/ios-star-outline.png");
+  let starIcon;
+
+  if (isFavorite) {
+    starIcon = isAndroid
+      ? require("../assets/icons/md-star.png")
+      : require("../assets/icons/ios-star.png");
+  } else {
+    starIcon = isAndroid
+      ? require("../assets/icons/md-star-outline.png")
+      : require("../assets/icons/ios-star-outline.png");
+  }
 
   return (
     <Swipeable
@@ -104,7 +112,7 @@ const ListItem = ({
     >
       <View style={styles.container}>
         <Text style={styles.text}>{name}</Text>
-        {showStar && (
+        {onFavoritePress && (
           <TouchableOpacity onPress={onFavoritePress}>
             <Image source={starIcon} style={styles.icon} resizeMode="contain" />
           </TouchableOpacity>
