@@ -50,8 +50,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const isAndroid = Platform.OS === "android";
-
 const LeftActions = (progress, dragX) => {
   const scale = dragX.interpolate({
     inputRange: [0, 100],
@@ -94,13 +92,15 @@ const ListItem = ({
   let starIcon;
 
   if (isFavorite) {
-    starIcon = isAndroid
-      ? require("../assets/icons/md-star.png")
-      : require("../assets/icons/ios-star.png");
+    starIcon = Platform.select({
+      android: require("../assets/icons/md-star.png"),
+      ios: require("../assets/icons/ios-star.png")
+    });
   } else {
-    starIcon = isAndroid
-      ? require("../assets/icons/md-star-outline.png")
-      : require("../assets/icons/ios-star-outline.png");
+    starIcon = Platform.select({
+      android: require("../assets/icons/md-star-outline.png"),
+      ios: require("../assets/icons/ios-star-outline.png")
+    });
   }
 
   return (

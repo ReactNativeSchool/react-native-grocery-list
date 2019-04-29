@@ -13,23 +13,21 @@ export default () => {
     return <ActivityIndicator />;
   }
 
-  console.log("CurrentList", Date.now());
   return (
     <View style={{ flex: 1 }}>
       <AddItem onSubmitEditing={({ nativeEvent: { text } }) => addItem(text)} />
       <FlatList
         data={list}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => 
-          // const favorite = isFavorite(item.id);
-           (
-             <ListItem
-               name={item.name}
-               onAddedSwipe={() => removeItem(item.id)}
-               onRemoveSwipe={() => removeItem(item.id)}
-             />
-          )
-        }
+        renderItem={({ item, index }) => (
+          <ListItem
+            name={item.name}
+            onAddedSwipe={() => removeItem(item.id)}
+            onRemoveSwipe={() => removeItem(item.id)}
+            onFavoritePress={() => alert("not implemented!")}
+            isFavorite={index < 2}
+          />
+        )}
         ItemSeparatorComponent={() => <Separator />}
       />
     </View>
