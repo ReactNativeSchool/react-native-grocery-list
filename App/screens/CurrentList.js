@@ -6,7 +6,7 @@ import { useCurrentList } from "../util/ListManager";
 import ListItem, { Separator } from "../components/ListItem";
 import AddItem from "../components/AddItem";
 
-export default () => {
+export default ({ navigation }) => {
   const { list, addItem, removeItem, loading } = useCurrentList();
 
   if (loading) {
@@ -26,6 +26,7 @@ export default () => {
             onRemoveSwipe={() => removeItem(item.id)}
             onFavoritePress={() => alert("not implemented!")}
             isFavorite={index < 2}
+            onRowPress={() => navigation.navigate("ItemDetails", { item })}
           />
         )}
         ItemSeparatorComponent={() => <Separator />}

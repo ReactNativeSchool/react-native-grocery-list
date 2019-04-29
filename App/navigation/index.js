@@ -6,6 +6,7 @@ import {
 
 import CurrentList from "../screens/CurrentList";
 import FavoritesList from "../screens/FavoritesList";
+import ItemDetails from "../screens/ItemDetails";
 
 const CurrentListStack = createStackNavigator({
   CurrentList: {
@@ -13,6 +14,12 @@ const CurrentListStack = createStackNavigator({
     navigationOptions: {
       headerTitle: "Shopping List"
     }
+  },
+  ItemDetails: {
+    screen: ItemDetails,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: navigation.getParam("item").name
+    })
   }
 });
 

@@ -6,7 +6,8 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  Animated
+  Animated,
+  TouchableNativeFeedback
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
@@ -87,7 +88,8 @@ const ListItem = ({
   isFavorite,
   onFavoritePress,
   onAddedSwipe,
-  onRemoveSwipe
+  onRemoveSwipe,
+  onRowPress
 }) => {
   let starIcon;
 
@@ -103,6 +105,11 @@ const ListItem = ({
     });
   }
 
+  const TouchableComponent = Platform.select({
+    ios: TouchableOpacity,
+    android: TouchableNativeFeedback
+  });
+
   return (
     <Swipeable
       renderLeftActions={onAddedSwipe && LeftActions}
@@ -110,14 +117,20 @@ const ListItem = ({
       onSwipeableLeftOpen={onAddedSwipe}
       onSwipeableRightOpen={onRemoveSwipe}
     >
-      <View style={styles.container}>
-        <Text style={styles.text}>{name}</Text>
-        {onFavoritePress && (
-          <TouchableOpacity onPress={onFavoritePress}>
-            <Image source={starIcon} style={styles.icon} resizeMode="contain" />
-          </TouchableOpacity>
-        )}
-      </View>
+      <TouchableComponent onPress={onRowPress}>
+        <View style={styles.container}>
+          <Text style={styles.text}>{name}</Text>
+          {onFavoritePress && (
+            <TouchableOpacity onPress={onFavoritePress}>
+              <Image
+                source={starIcon}
+                style={styles.icon}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+      </TouchableComponent>
     </Swipeable>
   );
 };
