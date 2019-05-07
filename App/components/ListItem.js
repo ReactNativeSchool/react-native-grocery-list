@@ -48,6 +48,15 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
     padding: 20
+  },
+
+  sectionContainer: {
+    paddingVertical: 10,
+    backgroundColor: "#d3d3d3"
+  },
+  sectionText: {
+    // color: "#fff",
+    fontWeight: "600"
   }
 });
 
@@ -82,6 +91,12 @@ const RightActions = (progress, dragX) => {
 };
 
 export const Separator = () => <View style={styles.separator} />;
+
+export const SectionHeader = ({ title }) => (
+  <View style={[styles.container, styles.sectionContainer]}>
+    <Text style={styles.sectionText}>{title}</Text>
+  </View>
+);
 
 const ListItem = ({
   name,
