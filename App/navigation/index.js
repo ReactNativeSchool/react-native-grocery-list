@@ -1,3 +1,5 @@
+import React from "react";
+import { Image, Platform } from "react-native";
 import {
   createAppContainer,
   createBottomTabNavigator,
@@ -32,19 +34,53 @@ const FavoritesStack = createStackNavigator({
   }
 });
 
-const Tabs = createBottomTabNavigator({
-  CurrentList: {
-    screen: CurrentListStack,
-    navigationOptions: {
-      tabBarLabel: "Current List"
+const Tabs = createBottomTabNavigator(
+  {
+    CurrentList: {
+      screen: CurrentListStack,
+      navigationOptions: {
+        tabBarLabel: "Current List"
+      }
+    },
+    FavoritesList: {
+      screen: FavoritesStack,
+      navigationOptions: {
+        tabBarLabel: "Favorites"
+      }
     }
   },
-  FavoritesList: {
-    screen: FavoritesStack,
-    navigationOptions: {
-      tabBarLabel: "Favorites"
-    }
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let image;
+        if (routeName === "CurrentList") {
+          image = Platform.select({
+            ios: require("../assets/icons/ios-list.png"),
+            android: require("../assets/icons/md-list.png")
+          });
+        } else if (routeName === "FavoritesList") {
+          image = Platform.select({
+            ios: focused
+              ? require("../assets/icons/ios-star.png")
+              : require("../assets/icons/ios-star-outline.png"),
+            android: focused
+              ? require("../assets/icons/md-star.png")
+              : require("../assets/icons/md-star-outline.png")
+          });
+        }
+
+        // You can return any component that you like here!
+        return (
+          <Image
+            style={{ tintColor, width: 25 }}
+            resizeMode="contain"
+            source={image}
+          />
+        );
+      }
+    })
   }
-});
+);
 
 export default createAppContainer(Tabs);
