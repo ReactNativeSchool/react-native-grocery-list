@@ -23,6 +23,7 @@ const AddItem = ({ style, onSubmitEditing, ...rest }) => {
         ref={input}
         style={[styles.input, style]}
         placeholder="Add new item..."
+        blurOnSubmit={false}
         onSubmitEditing={evt => {
           if (onSubmitEditing) {
             onSubmitEditing(evt);

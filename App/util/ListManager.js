@@ -18,7 +18,9 @@ export const useCurrentList = () => {
     AsyncStorage.getItem(CURRENT_LIST_KEY)
       .then(items => JSON.parse(items))
       .then(items => {
-        setList(items);
+        if (items) {
+          setList(items);
+        }
         setLoading(false);
       });
   }, []);

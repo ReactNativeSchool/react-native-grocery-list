@@ -1,5 +1,10 @@
 import React from "react";
-import { FlatList, View, ActivityIndicator } from "react-native";
+import {
+  FlatList,
+  ActivityIndicator,
+  KeyboardAvoidingView
+} from "react-native";
+import { Header } from "react-navigation";
 
 import { useCurrentList } from "../util/ListManager";
 
@@ -14,7 +19,11 @@ export default ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior="padding"
+      keyboardVerticalOffset={Header.HEIGHT + 20}
+    >
       <AddItem onSubmitEditing={({ nativeEvent: { text } }) => addItem(text)} />
       <FlatList
         data={list}
@@ -31,6 +40,6 @@ export default ({ navigation }) => {
         )}
         ItemSeparatorComponent={() => <Separator />}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
