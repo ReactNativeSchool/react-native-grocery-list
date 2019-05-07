@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(0, 0, 0, 0.2)",
-    // flex: 1,
     padding: 10
   },
   input: {
@@ -15,14 +14,26 @@ const styles = StyleSheet.create({
   }
 });
 
-const AddItem = ({ style, ...rest }) => (
-  <View style={styles.container}>
-    <TextInput
-      style={[styles.input, style]}
-      placeholder="Add new item..."
-      {...rest}
-    />
-  </View>
-);
+const AddItem = ({ style, onSubmitEditing, ...rest }) => {
+  const input = useRef(null);
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        ref={input}
+        style={[styles.input, style]}
+        placeholder="Add new item..."
+        onSubmitEditing={evt => {
+          if (onSubmitEditing) {
+            onSubmitEditing(evt);
+          }
+
+          input.current.clear();
+        }}
+        {...rest}
+      />
+    </View>
+  );
+};
 
 export default AddItem;
